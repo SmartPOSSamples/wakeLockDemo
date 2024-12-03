@@ -7,11 +7,13 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.RemoteException;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.Button;
 
@@ -74,7 +76,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void keepAwake(int timeout) {
-        mWakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK, getClass().getName());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S){
+            mWakeLock = powerManager.newWakeLock(PowerManager.SCREEN_BRIGHT_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, getClass().getName());
+        }else if (Build.VERSION.SDK_INT<= Build.VERSION_CODES.N){
+            mWakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK | PowerManager.SCREEN_BRIGHT_WAKE_LOCK, getClass().getName());
+        }
         mWakeLock.acquire(timeout);
         handler.postDelayed(new Runnable() {
             @Override
@@ -87,24 +93,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void goToSleep() {
-        try {
-            boolean result = systemExtApi.setDeviceOwner(this.getPackageName(), LockReceiver.class.getName());
-            if (result) {
-                DevicePolicyManager devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
-                devicePolicyManager.lockNow();
-//                SystemClock.sleep(2000);
-                if (mWakeLock != null && mWakeLock.isHeld()) {
-                    mWakeLock.release();
-                } else {
-                    PowerManager.WakeLock screenLock = powerManager.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ON_AFTER_RELEASE, getClass().getName());
-                    screenLock.acquire();
-                    screenLock.release();
+        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N){
+            try {
+                boolean result = systemExtApi.setDeviceOwner(this.getPackageName(), LockReceiver.class.getName());
+                if (result) {
+                    DevicePolicyManager devicePolicyManager = (DevicePolicyManager) getSystemService(Context.DEVICE_POLICY_SERVICE);
+                    devicePolicyManager.lockNow();
                 }
+            } catch (RemoteException e) {
+                e.printStackTrace();
             }
-        } catch (RemoteException e) {
-            e.printStackTrace();
         }
-
     }
 
     @Override
