@@ -1,4 +1,4 @@
-package com.wizarpos.screenupandoff;
+package com.wizarpos.wakelockdemo;
 
 import android.content.Context;
 

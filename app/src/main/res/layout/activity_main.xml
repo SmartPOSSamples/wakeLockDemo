@@ -4,20 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.cloudpos.screenupandoff.MainActivity"
+    tools:context="com.cloudpos.wakelockdemo.MainActivity"
     android:padding="30dp"
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/keepAwake"
+        android:id="@+id/keepWorking"
         android:layout_width="match_parent"
         android:layout_height="45sp"
         android:textAllCaps="false"
-        android:text="Keep awake 60s"/>
-    <Button
-        android:id="@+id/goToSleep"
-        android:layout_width="match_parent"
-        android:layout_height="45sp"
-        android:textAllCaps="false"
-        android:text="Sleep device"/>
+        android:text="Keep working"/>
+
 </LinearLayout>

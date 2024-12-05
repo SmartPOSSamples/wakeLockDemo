@@ -1,3 +1,3 @@
-# wakeLockScreenOff
+# WakeLockDemo
 
-The demo show how to keep screen awake or sleeping.
+The demo show how to use wakelock.

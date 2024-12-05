@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
+    <uses-permission android:name="android.permission.LOCK_DEVICE"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CLOUDPOS_SET_SCREEN_OFF_TIMEOUT"/>
 
     <application
@@ -11,10 +13,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.ScreenUpAndOff"
+        android:theme="@style/Theme.WakeLockDemo"
         tools:targetApi="31">
         <activity
-            android:name="com.cloudpos.screenupandoff.MainActivity"
+            android:name="com.cloudpos.wakelockdemo.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -22,7 +24,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name="com.cloudpos.screenupandoff.LockReceiver"
+        <receiver android:name="com.cloudpos.wakelockdemo.LockReceiver"
             android:label="@string/app_name"
             android:description="@string/app_name"
             android:permission="android.permission.BIND_DEVICE_ADMIN"

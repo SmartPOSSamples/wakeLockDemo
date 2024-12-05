@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace 'com.cloudpos.screenupandoff'
+    namespace 'com.cloudpos.wakelockdemo'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.cloudpos.screenupandoff"
+        applicationId "com.cloudpos.wakelockdemo"
         minSdk 23
         targetSdk 33
         versionCode 1

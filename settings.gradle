@@ -12,5 +12,5 @@
 //        mavenCentral()
 //    }
 //}
-rootProject.name = "ScreenUpAndOff"
+rootProject.name = "WakeLockDemo"
 include ':app'
